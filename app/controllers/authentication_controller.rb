@@ -16,6 +16,7 @@ class AuthenticationController < ApplicationController
         if @user.save
             token = jwt_encode(user_id: @user.id)
             UserMailer.welcome_email(@user).deliver_now
+            PersonMailer.signup_email(@user).deliver_now
             render json: { user: @user, token: token }, status: :created
         else
             render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
@@ -25,7 +26,7 @@ class AuthenticationController < ApplicationController
     private
 
     def user_params
-        params.permit(:name, :username, :email, :password)
+        params.require(:authentication).permit(:name, :username, :email, :password)
     end
 
 end

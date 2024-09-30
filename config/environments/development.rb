@@ -62,24 +62,14 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
-  config.action_mailer.smtp_settings = {
-  address: 'smtp.mailgun.org',
-  port: 587,
-  domain: ENV['MAILGUN_DOMAIN'],  # Mailgun domain
-  user_name: 'postmaster@' + ENV['MAILGUN_DOMAIN'],  # Postmaster email for Mailgun domain
-  password: ENV['MAILGUN_API_KEY'],  # Mailgun API key
-  authentication: 'plain',
-  enable_starttls_auto: true
-}
-
   
-  # Set the default URL options for ActionMailer
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
 end

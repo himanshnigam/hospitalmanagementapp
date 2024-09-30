@@ -256,7 +256,7 @@ DEPENDENCIES
   dotenv-rails
   jwt
   letter_opener
-  mailgun-ruby
+  mailgun-ruby (~> 1.2.14)
   puma (>= 5.0)
   rails (~> 7.1.4)
   sqlite3 (>= 1.4)
