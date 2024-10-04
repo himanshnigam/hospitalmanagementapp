@@ -15,8 +15,8 @@ class AuthenticationController < ApplicationController
         @user = User.new(user_params)
         if @user.save
             token = jwt_encode(user_id: @user.id)
-            UserMailer.welcome_email(@user).deliver_now
-            PersonMailer.signup_email(@user).deliver_now
+            SendMailgunMailJob.set(wait: 30.seconds).perform_later(@user)
+            SendLetterOpenerMailJob.set(wait: 30.seconds).perform_later(@user)
             render json: { user: @user, token: token }, status: :created
         else
             render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
